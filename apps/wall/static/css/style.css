@@ -1,0 +1,18 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+body {
+    width: 967px;
+    min-height: 600px;
+    margin: 0px auto;
+}
+h1 {
+    color: blue;
+}
+
+p {
+    color: darkslategrey;
+}

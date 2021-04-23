@@ -1,0 +1,49 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+body {
+    width: 967px;
+    min-height: 600px;
+    margin: 0px auto;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    background-color: white;
+}
+
+/* h1 {
+    color: blue;
+} */
+
+p {
+    color: darkslategrey;
+}
+
+/* #form1, #form2 {
+    border: 2px solid black;
+    width: 336px;
+    min-height: 300px;
+} */
+
+.center-btn {
+    display: inline-flex;
+    justify-content:center;
+    margin-top: 10px;
+    position: relative;
+    left: 30%;
+    /* transform: translateX(-100%); */
+}
+
+.upperLink {
+    display:-webkit-flex;
+    display:flex;
+    list-style-type:none;
+    padding:0;
+    justify-content:flex-end;
+    text-align:right;
+}
