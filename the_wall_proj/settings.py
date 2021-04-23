@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'kv!ww)5i%m__n^$i7uxxrk-$^-_g*m391@6nvb*k4hfdfyfgn#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.143.7.79']
 
 
 # Application definition
@@ -75,13 +75,26 @@ WSGI_APPLICATION = 'the_wall_proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql', # cambiar la base de datos a postgres
+        'NAME': 'users_db', # nombre de la base de datos, se creará en el servidor de Postgres a continuación
+        'USER': 'postgres', # postgres para macOS o 'USER': 'postgres', para Windows
+        'PASSWORD': 'root', # contraseña a la que la cambió al instalar Postgres
+        'HOST': '127.0.0.1', # dirección IP localhost
+        'PORT': '5432', # puerto del servidor postgres predeterminado
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -120,3 +133,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")	# agregue esta linea al final; no reemplace ninguna las lineas existentes!
