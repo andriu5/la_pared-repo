@@ -41,3 +41,23 @@ class User(models.Model):
     
     def __repr__(self):
         return f"<User object: Name: {self.first_name} {self.last_name} | Email: {self.email} ({self.id})>"
+
+# Si tuviera un usuario solo, cómo me gustaría referenciar a los mensajes? -> related_name
+# 
+class Message(models.Model):
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey("User", related_name="messages", on_delete=models.CASCADE)
+    def __repr__(self):
+        return f"<Message object: Message: {self.message} ({self.id})>"
+
+# Si tuviera un usuario solo, cómo me gustaría referenciar a los comentatios? -> related_name
+class Comment(models.Model):
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    message = models.ForeignKey("Message", related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", related_name="comments", on_delete=models.CASCADE)
+    def __repr__(self):
+        return f"<Comments object: Comment: {self.comment} ({self.id})>"
