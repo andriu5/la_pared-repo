@@ -14,15 +14,7 @@ def index(request):
             request.session['nombre_usuario'] = ""
         if 'dias_restantes_para_cumple_del_usuario' not in request.session.keys():
             request.session['dias_restantes_para_cumple_del_usuario'] = 0
-        context = {
-            "strftime": strftime("%Y-%m-%d %H:%M %p", gmtime()), # python siempre maneja YYYY-MM-DD
-            "gmtime": gmtime(),
-            "time": time(),
-            "localtime": localtime(),
-            "strfTime2": strftime("%Y-%m-%d %H:%M %p"),
-            "datetime": datetime.now()
-        }
-    return render(request, "index.html", context)
+    return render(request, "index.html")
 
 def register(request):
     errors = User.objects.basic_validator(request.POST)
