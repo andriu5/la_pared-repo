@@ -42,7 +42,7 @@ def post_messages(request):
         if request.method == "POST":
             new_message = Message.objects.create(
                 message = request.POST['post_message'],
-                user = User.objects.get(id=request.session['userid'])
+                user = User.objects.get(id=request.session['user']['id'])
             )
             new_message.save()
             messages.success(request,"Message successfully registered!")
