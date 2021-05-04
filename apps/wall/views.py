@@ -20,20 +20,20 @@ def wall_index(request):
             context = {
                 'user': request.session['nombre_usuario'],
                 'allMessages' : Message.objects.all(),
-                'allUsers' : User.objects.all(),
+                #'allUsers' : User.objects.all(),
                 'allMessages_halfHourAgo' : User.objects.filter(message__created_at__gt=half_hour_ago),
-                'yourMessages' : Message.objects.filter(user=currentUserID),
+                #'yourMessages' : Message.objects.filter(user=currentUserID),
                 # 'otherComments' : Message.objects.get(id=currentUser).comment.all(),
                 # 'allComments' : Comment.objects.filter(message__user=User.objects.get(id=currentUserID)).order_by('created_at') or Comment.objects.exclude(message=currentUserID).order_by('created_at'),
-                'allComments' : Comment.objects.filter(message__user=User.objects.get(id=currentUserID)).order_by('created_at')
+                #'allComments' : Comment.objects.filter(message__user=User.objects.get(id=currentUserID)).order_by('created_at')
             }
             return render(request, "wall/index.html", context)
 
 def post_messages(request):
     print('*'*100)
     print('creating message...')
-    #Verificar Texto en wall_validator recibiendo post
-    errors = User.objects.wall_validator(request.POST)
+    #Verificar Texto en post_message_validator recibiendo post
+    errors = User.objects.post_message_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -57,12 +57,12 @@ def post_comments(request,id):
     print(request.POST)
     print("Message-ID: ", id)
 
-    #Verificar Texto en wall_validator recibiendo post
-    errors = User.objects.wall_validator(request.POST)
+    #Verificar Texto en post_comment_validator recibiendo post
+    errors = User.objects.post_comment_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('index')
+        return redirect('wall_index')
     else:
         if request.method == "POST":
             new_comment = Comment.objects.create(
