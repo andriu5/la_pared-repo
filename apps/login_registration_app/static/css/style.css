@@ -47,3 +47,7 @@ p {
     justify-content:flex-end;
     text-align:right;
 }
+
+#ulist {
+    list-style-type: none;
+}

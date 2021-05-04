@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Assignment - adcanced version</title>
+    <!-- Optional JavaScript -->
+    <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <!-- Bootstrap from https://getbootstrap.com -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-7"><h1>CodingDojo Wall</h1></div>
+            <div class="col-12 col-sm-4 col-md-3"><p>Welcome, {{request.session.nombre_usuario}} - userID: {{request.session.user.id}}</p></div>
+            <div class="col-12 col-sm-4 col-md-2"><a href="/logout/">Log Out</a></div>
+        </div>
+        <hr>
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-12 alert alert-info">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" action="/wall/post_message/">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <textarea name="post_message" placeholder="Post a message..." class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-success my-2 ml-auto">Post a message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ul id="ulist">
+                    {% for message in allMessages %}
+                    <h3>{{message.user.first_name}} {{message.user.last_name}} (MessageID: {{message.id}}) - {{message.updated_at}}</h3>
+                    <p>{{message.message}}</p>
+                    {% if request.session.user.id  == message.user.id  and allMessages_halfHourAgo %}
+                    <form action="/wall/delete_message/{{message.id}}/" method="POST">
+                        {% csrf_token %}
+                        <input type='hidden' name='message_id' value='{{message.id}}'>
+                        <input type='hidden' name='createdAt' value='{{message.created_at}}'>
+                        <button type="submit" class="btn btn-danger my-2">Delete a Message</button>
+                    </form>
+                    {% endif %}
+                    {% for comment in message.comment.all %}
+                    <li style="list-style-type: none">
+                        <h5>{{comment.user.first_name}} {{comment.user.last_name}} (CommentID: {{comment.id}}) - {{comment.updated_at}}</h5>
+                        <p>{{comment.comment}}</p>
+                    </li>
+                    {% endfor %}
+                    <li style="list-style-type: none">
+                        <form action="/wall/post_comment/{{message.id}}/" method="POST">
+                            {% csrf_token %}
+                            <textarea name="post_comment" placeholder="Leave {{message.user.first_name}} a comment..." class="form-control" rows="2"></textarea>
+                            <button type="submit" class="btn btn-primary my-2">Post a comment</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
