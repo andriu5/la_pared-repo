@@ -67,7 +67,7 @@ def post_comments(request,id):
         if request.method == "POST":
             new_comment = Comment.objects.create(
                 comment = request.POST['post_comment'],
-                user = User.objects.get(id=request.session['userid']),
+                user = User.objects.get(id=request.session['user']['id']),
                 message = Message.objects.get(id=id)
             )
             new_comment.save()
