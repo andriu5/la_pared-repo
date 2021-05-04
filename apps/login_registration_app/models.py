@@ -29,11 +29,17 @@ class UserManager(models.Manager):
             errors['release_date'] = f"Error: The release date can not be in the Future! Today is: {datetime.today().strftime('%d/%m/%Y')}"
         return errors
 
-    def wall_validator(self, postData):
+    def post_message_validator(self, postData):
         print(postData)
         errors = {}
         if len(postData['post_message']) < 5:
             errors['message_short'] = "Error: Messages should be at least 5 characters"
+        return errors    
+    def post_comment_validator(self, postData):
+        print(postData)
+        errors = {}
+        if len(postData['post_comment']) < 5:
+            errors['comment_short'] = "Error: Comments should be at least 5 characters"
         return errors
     
     def log_validation(self, postData):
