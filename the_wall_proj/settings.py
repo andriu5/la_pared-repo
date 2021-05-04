@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'kv!ww)5i%m__n^$i7uxxrk-$^-_g*m391@6nvb*k4hfdfyfgn#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.143.7.79']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'the_wall_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', # cambiar la base de datos a postgres
-        'NAME': 'users_db', # nombre de la base de datos, se creará en el servidor de Postgres a continuación
+        'NAME': 'wall_db', # nombre de la base de datos, se creará en el servidor de Postgres a continuación
         'USER': 'postgres', # postgres para macOS o 'USER': 'postgres', para Windows
         'PASSWORD': 'root', # contraseña a la que la cambió al instalar Postgres
         'HOST': '127.0.0.1', # dirección IP localhost

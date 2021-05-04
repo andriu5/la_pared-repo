@@ -16,3 +16,7 @@ h1 {
 p {
     color: darkslategrey;
 }
+
+#ulist {
+    list-style-type: none;
+}

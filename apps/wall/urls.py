@@ -2,6 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('wall_app/', views.wall_index, name='wall_index'),
-    path('wall_app/<str:name>/', views.hello_name, name='wall_hello_name'),
+    path('', views.wall_index, name='wall_index'),
+    path('post_message/', views.post_messages, name='post_messages'),
+    path('post_comment/<int:id>/', views.post_comments, name='post_comments'),
+    path('delete_message/<int:id>/', views.delete_message, name='delete_message'),
+    path('logout/', views.logout, name='wall_logout'),
 ]
