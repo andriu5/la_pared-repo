@@ -100,7 +100,7 @@ def login(request):
             # usa el método check_password_hash de bcrypt, pasando el hash de nuestra base de datos y la contraseña del formulario
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             # si obtenemos True después de validar la contraseña, podemos poner la identificación del usuario en la sesión
-                request.session['userid'] = logged_user.id
+                request.session['user']['id'] = logged_user.id
                 # ¡Nunca renderices en una publicación, siempre redirigir!
                 messages.success(request,"Successfully logged in!")
                 return redirect('wall_index')
